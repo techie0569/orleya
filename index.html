@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ORLEYA - The Fashion Empire Rises</title>
+    <meta name="description" content="ORLEYA - Where fashion becomes revolution. Experience the rise of a luxury empire.">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@200;300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --matte-black: #0a0a0a;
+            --deep-black: #000000;
+            --gold: #D4AF37;
+            --gold-glow: rgba(212, 175, 55, 0.4);
+            --white: #FFFFFF;
+            --grey: #666666;
+            --dark-grey: #1a1a1a;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--matte-black);
+            color: var(--white);
+            overflow-x: hidden;
+            line-height: 1.2;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--deep-black);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--gold);
+            border-radius: 2px;
+        }
+        
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 20px 40px;
+            background: rgba(10, 10, 10, 0.7);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            font-weight: 900;
+            color: var(--gold);
+            text-decoration: none;
+            letter-spacing: 2px;
+            position: relative;
+        }
+        
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width 0.3s ease;
+        }
+        
+        .logo:hover::after {
+            width: 100%;
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+        }
+        
+        .nav-item {
+            font-weight: 300;
+            font-size: 14px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        
+        .nav-link {
+            color: var(--white);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-link:hover {
+            color: var(--gold);
+        }
+        
+        .cart-icon {
+            color: var(--gold);
+            font-size: 18px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .cart-icon:hover {
+            transform: scale(1.1);
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(ellipse at center, rgba(212, 175, 55, 0.05) 0%, var(--matte-black) 70%);
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(212, 175, 55, 0.03) 50%, transparent 70%);
+            animation: shimmer 8s ease-in-out infinite;
+        }
+        
+        @keyframes shimmer {
+            0%, 100% { transform: translateX(-100%); }
+            50% { transform: translateX(100%); }
+        }
+        
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            max-width: 1000px;
+            padding: 0 40px;
+        }
+        
+        .hero-subtitle {
+            font-size: 16px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 30px;
+            font-weight: 300;
+            opacity: 0;
+            animation: fadeInUp 1.5s ease 0.5s forwards;
+        }
+        
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(4rem, 12vw, 12rem);
+            font-weight: 900;
+            line-height: 0.9;
+            margin-bottom: 40px;
+            background: linear-gradient(135deg, var(--gold) 0%, #f4e98a 50%, var(--gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 0;
+            animation: fadeInUp 1.5s ease 1s forwards;
+            text-shadow: 0 0 50px var(--gold-glow);
+        }
+        
+        .hero-tagline {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.5rem, 4vw, 3rem);
+            font-weight: 400;
+            font-style: italic;
+            color: var(--white);
+            margin-bottom: 60px;
+            opacity: 0;
+            animation: fadeInUp 1.5s ease 1.5s forwards;
+        }
+        
+        .hero-cta {
+            display: inline-block;
+            padding: 20px 50px;
+            background: transparent;
+            border: 2px solid var(--gold);
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: 14px;
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            animation: fadeInUp 1.5s ease 2s forwards;
+        }
+        
+        .hero-cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--gold);
+            transition: left 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            z-index: -1;
+        }
+        
+        .hero-cta:hover::before {
+            left: 0;
+        }
+        
+        .hero-cta:hover {
+            color: var(--matte-black);
+            transform: translateY(-2px);
+            box-shadow: 0 20px 40px rgba(212, 175, 55, 0.3);
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--gold);
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+        
+        /* Revolution Section */
+        .revolution {
+            padding: 200px 0;
+            background: var(--deep-black);
+            position: relative;
+        }
+        
+        .revolution::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        }
+        
+        .revolution-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+            text-align: center;
+        }
+        
+        .revolution-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 8vw, 8rem);
+            font-weight: 700;
+            margin-bottom: 60px;
+            color: var(--white);
+            line-height: 1;
+        }
+        
+        .revolution-subtitle {
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            color: var(--gold);
+            font-weight: 300;
+            letter-spacing: 2px;
+            margin-bottom: 80px;
+        }
+        
+        /* Empire Grid */
+        .empire-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2px;
+            background: var(--gold);
+            padding: 2px;
+            margin-top: 100px;
+        }
+        
+        .empire-card {
+            aspect-ratio: 1;
+            background: var(--matte-black);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .empire-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, transparent 50%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        
+        .empire-card:hover::before {
+            opacity: 1;
+        }
+        
+        .empire-card:hover {
+            transform: scale(1.05);
+            z-index: 10;
+        }
+        
+        .empire-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 40px;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+        }
+        
+        .empire-label {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 10px;
+        }
+        
+        .empire-desc {
+            font-size: 14px;
+            color: var(--white);
+            font-weight: 300;
+            line-height: 1.4;
+        }
+        
+        /* Manifesto Section */
+        .manifesto {
+            padding: 300px 0;
+            background: var(--matte-black);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .manifesto::before {
+            content: 'ORLEYA';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-5deg);
+            font-family: 'Playfair Display', serif;
+            font-size: 20rem;
+            font-weight: 900;
+            color: rgba(212, 175, 55, 0.03);
+            z-index: 1;
+            pointer-events: none;
+        }
+        
+        .manifesto-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            padding: 0 40px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .manifesto-text {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 400;
+            line-height: 1.3;
+            color: var(--white);
+            margin-bottom: 60px;
+        }
+        
+        .manifesto-signature {
+            font-size: 18px;
+            color: var(--gold);
+            font-weight: 300;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+        
+        /* Collections Showcase */
+        .collections {
+            background: var(--deep-black);
+        }
+        
+        .collection-slide {
+            height: 100vh;
+            display: flex;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .collection-image {
+            flex: 1;
+            background: linear-gradient(135deg, var(--dark-grey) 0%, var(--matte-black) 100%);
+            position: relative;
+        }
+        
+        .collection-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 100px;
+            background: var(--matte-black);
+        }
+        
+        .collection-number {
+            font-size: 14px;
+            color: var(--gold);
+            letter-spacing: 3px;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+        
+        .collection-name {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 6vw, 6rem);
+            font-weight: 900;
+            color: var(--white);
+            margin-bottom: 40px;
+            line-height: 0.9;
+        }
+        
+        .collection-description {
+            font-size: 18px;
+            color: var(--grey);
+            line-height: 1.6;
+            margin-bottom: 60px;
+            font-weight: 300;
+        }
+        
+        .collection-cta {
+            display: inline-block;
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 16px;
+            letter-spacing: 1px;
+            border-bottom: 1px solid var(--gold);
+            transition: all 0.3s ease;
+            align-self: flex-start;
+        }
+        
+        .collection-cta:hover {
+            color: var(--white);
+            border-bottom-color: var(--white);
+        }
+        
+        /* Empire Call */
+        .empire-call {
+            padding: 300px 0;
+            background: radial-gradient(circle at center, rgba(212, 175, 55, 0.1) 0%, var(--matte-black) 70%);
+            text-align: center;
+            position: relative;
+        }
+        
+        .empire-call-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(4rem, 10vw, 10rem);
+            font-weight: 900;
+            color: var(--gold);
+            margin-bottom: 60px;
+            line-height: 0.9;
+            text-shadow: 0 0 100px var(--gold-glow);
+        }
+        
+        .empire-call-subtitle {
+            font-size: clamp(1.5rem, 4vw, 3rem);
+            color: var(--white);
+            font-weight: 300;
+            margin-bottom: 80px;
+        }
+        
+        .empire-cta {
+            display: inline-block;
+            padding: 25px 60px;
+            background: var(--gold);
+            color: var(--matte-black);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 16px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .empire-cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--white);
+            transition: left 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            z-index: -1;
+        }
+        
+        .empire-cta:hover::before {
+            left: 0;
+        }
+        
+        .empire-cta:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 30px 60px rgba(212, 175, 55, 0.4);
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--deep-black);
+            padding: 100px 0 50px;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 80px;
+            margin-bottom: 80px;
+        }
+        
+        .footer-brand {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--gold);
+            margin-bottom: 30px;
+        }
+        
+        .footer-tagline {
+            font-size: 18px;
+            color: var(--grey);
+            line-height: 1.6;
+            font-weight: 300;
+        }
+        
+        .footer-section h4 {
+            color: var(--gold);
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+        }
+        
+        .footer-section a {
+            display: block;
+            color: var(--grey);
+            text-decoration: none;
+            margin-bottom: 15px;
+            font-weight: 300;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-section a:hover {
+            color: var(--gold);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 50px;
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
+            color: var(--grey);
+            font-size: 14px;
+        }
+        
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 15px 20px;
+            }
+            
+            .nav-menu {
+                display: none;
+            }
+            
+            .hero-content {
+                padding: 0 20px;
+            }
+            
+            .empire-grid {
+                grid-template-columns: 1fr;
+                gap: 1px;
+            }
+            
+            .collection-slide {
+                flex-direction: column;
+                height: auto;
+            }
+            
+            .collection-info {
+                padding: 50px 20px;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                padding: 0 20px;
+            }
+            
+            .manifesto {
+                padding: 150px 0;
+            }
+            
+            .manifesto::before {
+                font-size: 8rem;
+            }
+            
+            .empire-call {
+                padding: 150px 0;
+            }
+        }
+        
+        /* Parallax Effect */
+        .parallax-element {
+            will-change: transform;
+        }
+        
+        /* Loading Animation */
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--matte-black);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeOut 2s ease 3s forwards;
+        }
+        
+        .loading-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--gold);
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+        
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading">
+        <div class="loading-text">ORLEYA</div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-content">
+            <a href="#" class="logo">ORLEYA</a>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="#revolution" class="nav-link">Empire</a></li>
+                <li class="nav-item"><a href="#collections" class="nav-link">Collections</a></li>
+                <li class="nav-item"><a href="#manifesto" class="nav-link">Manifesto</a></li>
+                <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="cart-icon">⚡</div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-subtitle">The Fashion Empire</div>
+            <h1 class="hero-title">RISES</h1>
+            <p class="hero-tagline">Where revolution meets luxury</p>
+            <a href="#revolution" class="hero-cta">Join The Revolution</a>
+        </div>
+        <div class="scroll-indicator">Scroll to Enter</div>
+    </section>
+
+    <!-- Revolution Section -->
+    <section class="revolution" id="revolution">
+        <div class="revolution-content">
+            <h2 class="revolution-title">FEARLESS</h2>
+            <p class="revolution-subtitle">Fashion Without Limits</p>
+            
+            <div class="empire-grid">
+                <div class="empire-card">
+                    <div class="empire-content">
+                        <h3 class="empire-label">Dominance</h3>
+                        <p class="empire-desc">Command every room you enter</p>
+                    </div>
+                </div>
+                <div class="empire-card">
+                    <div class="empire-content">
+                        <h3 class="empire-label">Elegance</h3>
+                        <p class="empire-desc">Refined power in every thread</p>
+                    </div>
+                </div>
+                <div class="empire-card">
+                    <div class="empire-content">
+                        <h3 class="empire-label">Revolution</h3>
+                        <p class="empire-desc">Redefining luxury fashion</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Collections Showcase -->
+    <section class="collections" id="collections">
+        <div class="collection-slide">
+            <div class="collection-image"></div>
+            <div class="collection-info">
+                <div class="collection-number">01</div>
+                <h3 class="collection-name">EMPIRE</h3>
+                <p class="collection-description">
+                    Commanding presence meets unmatched sophistication. 
+                    Every piece crafted to elevate your status and define your power.
+                </p>
+                <a href="#" class="collection-cta">Explore Empire →</a>
+            </div>
+        </div>
+        
+        <div class="collection-slide">
+            <div class="collection-info">
+                <div class="collection-number">02</div>
+                <h3 class="collection-name">REIGN</h3>
+                <p class="collection-description">
+                    Fierce elegance for those who dare to rule. 
+                    Luxury redefined through bold design and fearless expression.
+                </p>
+                <a href="#" class="collection-cta">Discover Reign →</a>
+            </div>
+            <div class="collection-image"></div>
+        </div>
+        
+        <div class="collection-slide">
+            <div class="collection-image"></div>
+            <div class="collection-info">
+                <div class="collection-number">03</div>
+                <h3 class="collection-name">LEGACY</h3>
+                <p class="collection-description">
+                    Limited editions for the elite few. 
+                    Exclusive pieces that transcend fashion and become legend.
+                </p>
+                <a href="#" class="collection-cta">Enter Legacy →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Manifesto Section -->
+    <section class="manifesto" id="manifesto">
+        <div class="manifesto-content">
+            <p class="manifesto-text">
+                "We don't follow fashion.<br>
+                We create empires.<br>
+                We don't dress bodies.<br>
+                We armor souls."
+            </p>
+            <div class="manifesto-signature">— The ORLEYA Manifesto</div>
+        </div>
+    </section>
+
+    <!-- Empire Call Section -->
+    <section class="empire-call">
+        <h2 class="empire-call-title">CONQUER</h2>
+        <p class="empire-call-subtitle">Your throne awaits</p>
+        <a href="#" class="empire-cta">Enter The Empire</a>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="contact">
+        <div class="footer-content">
+            <div>
+                <div class="footer-brand">ORLEYA</div>
+                <p class="footer-tagline">
+                    The fashion empire where luxury meets revolution. 
+                    Every piece tells a story of power, elegance, and fearless ambition.
+                </p>
+            </div>
+            <div class="footer-section">
+                <h4>Empire</h4>
+                <a href="#">About ORLEYA</a>
+                <a href="#">Our Story</a>
+                <a href="#">Manifesto</a>
+                <a href="#">Press</a>
+            </div>
+            <div class="footer-section">
+                <h4>Collections</h4>
+                <a href="#">Empire</a>
+                <a href="#">Reign</a>
+                <a href="#">Legacy</a>
+                <a href="#">Accessories</a>
+            </div>
+            <div class="footer-section">
+                <h4>Experience</h4>
+                <a href="#">Concierge</a>
+                <a href="#">Private Shopping</a>
+                <a href="#">Size Guide</a>
+                <a href="#">Care</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 ORLEYA Empire. All rights reserved. | Crafted for the Fearless</p>
+        </div>
+    </footer>
+
+    <script>
+        // Remove loading screen after page load
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.querySelector('.loading').style.display = 'none';
+            }, 3000);
+        });
+
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Navbar effects on scroll
+        let lastScrollTop = 0;
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const navbar = document.querySelector('.navbar');
+            
+            if (scrollTop > 100) {
+                navbar.style.background = 'rgba(0, 0, 0, 0.95)';
+                navbar.style.backdropFilter = 'blur(30px)';
+            } else {
+                navbar.style.background = 'rgba(10, 10, 10, 0.7)';
+                navbar.style.backdropFilter = 'blur(20px)';
+            }
+            
+            // Hide/show navbar based on scroll direction
+            if (scrollTop > lastScrollTop && scrollTop > 200) {
+                navbar.style.transform = 'translateY(-100%)';
+            } else {
+                navbar.style.transform = 'translateY(0)';
+            }
+            lastScrollTop = scrollTop;
+        });
+
+        // Parallax effect for hero section
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            const heroContent = document.querySelector('.hero-content');
+            
+            if (hero && heroContent) {
+                heroContent.style.transform = `translateY(${scrolled * 0.5}px)`;
+                hero.style.opacity = 1 - scrolled / window.innerHeight;
+            }
+        });
+
+        // Intersection Observer for animations
+        const observ
